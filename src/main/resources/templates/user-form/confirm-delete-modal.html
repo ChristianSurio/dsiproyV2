@@ -1,0 +1,52 @@
+<input type="hidden" id="userIdHidden" name="userIdHiddenInput"/>
+<input type="hidden" id="userLockHidden" name="userIdHiddenInput"/>
+<!-- Modal Eliminar-->
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+
+      <div class="modal-header"><!---------------header---------------------->
+        <h5 class="modal-title" id="deleteModalTitle">Confirmar Eliminar Usuario</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="cerrar">
+          <span aria-hidden="true">×</span> 
+        </button>
+      </div>
+
+      <div class="modal-body"><!------------------body----------------------->
+        ¿Está seguro que desea eliminar a este Usuario?
+        
+      </div>
+      
+      <div class="modal-footer"><!----------------footer--------------------->
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-danger" th:onclick="deleteUser()" >Eliminar</button>
+      </div>
+      
+    </div>
+  </div>
+</div>
+<!-- Modal Dar de Baja-->
+<div class="modal fade" id="lockModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+
+      <div class="modal-header"><!---------------header---------------------->
+        <h5 class="modal-title" id="lockModalTitle">Confirmar dar de Baja</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="cerrar">
+          <span aria-hidden="true">×</span> 
+        </button>
+      </div>
+
+      <div class="modal-body"><!------------------body----------------------->
+        ¿Desea dar de baja a este usuario?
+        
+      </div>
+      
+      <div class="modal-footer"><!----------------footer--------------------->
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-warning" th:onclick="lockUser()" id="btnlock">Dar de Baja</button>
+      </div>
+      
+    </div>
+  </div>
+</div>

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>ListaUsuarios</title>       
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <link rel="stylesheet" href="/css/bootstrap.min.css">
+        <script type="text/javascript" src="/js/jquery-3.2.1.slim.min.js"></script>
+        <script type="text/javascript" src="/js/popper.min.js"></script>
+        <script type="text/javascript" src="/js/bootstrap.min.js"></script>
+    <!--    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+        --> 
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/solid.css">
+        <script src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
+        
+        <!--DataTables CSS-->
+        <link rel="stylesheet" href="/js/datatables.min.css">
+        <link rel="stylesheet" href="/js/DataTables-1.10.21/css/dataTables.bootstrap4.min.css">
+        <script type="text/javascript" src="/js/datatables.min.js"></script>
+    
+    </head>
+
+    <body>
+        <header class="row">
+            <div class="col-3 text-center">
+                LOGO
+            </div>
+            <div class="col-6 p-3 text-light text-center" style="background-color: rgb(60, 182, 81);">
+                <h4>SIGSAAQyF</h4>
+            </div>
+            <div class="col-3 text-center">
+                user
+            </div>
+        </header>
+
+        <div class="container pt-4">
+            <h2>Lista de Usuarios del sistema</h2>
+            <div class="row col-12">
+                <a th:href="@{/adminRegister}" class="btn btn-success"><i class='fas fa-user-plus'></i> Registrar nuevo</a>
+            </div>
+            <div class="alert-danger" th:if="${listErrorMessage}" th:text="${listErrorMessage}">Name Error</div>
+            <div class="containder">
+            <div class="row">    
+                <div class="col-12">
+                <div class="table-responsive">
+                    <table id= "myTable" class="table table-striped col-10">
+                        <thead> <!--------Encabezados de la tabla------->
+                            <th>Id</th>
+                            <th>Nombre</th>
+                            <th>Apellido</th>
+                            <th>Carnet</th>
+                            <th>Correo</th>
+                            <th>Accion</th>
+                        </thead>
+                        <tbody>
+                            <tr th:each="user: ${userList}">
+                                <td th:text="${user.id}"></td>
+                                <td th:text="${user.primerNombre}+' '+${user.segundoNombre}"></td>
+                                <td th:text="${user.primerApellido}+' '+${user.segundoApellido}"></td>
+                                <td th:text="${user.carnet}"></td>
+                                <td th:text="${user.email}"></td>
+                                <td>
+                                <!--<a th:onclick="' javascript:confirmDelete(\'' + ${user.id} + '\'); ' " class="btn btn-danger"><i class='fas fa-trash'></i></a>
+                                    -->
+                                    <button 
+                                        type="button" 
+                                        class="btn btn-danger" 
+                                        data-toggle="modal" 
+                                        data-target="#deleteModal"
+                                        th:onclick="' javascript:confirmAction(\'' + ${user.id} + '\'); ' ">
+                                        <i class='fas fa-trash'></i>
+                                    </button>
+                                    <a th:href="@{'/userEdit/'+${user.id}}" class="btn btn-primary"><i class='fas fa-edit'></i></a>
+                                    <button 
+                                        type="button" 
+                                        th:class="${user.locked}? 'btn btn-primary': 'btn btn-warning'"
+                                        th:onclick="' javascript:confirmAction(\'' + ${user.id} + '\',\'' + ${user.locked} + '\'); ' " 
+                                        data-toggle="modal" 
+                                        data-target="#lockModal">
+                                        <i th:class="${user.locked}? 'fa fa-user' : 'fas fa-user-times'"></i>
+                                    </button> 
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div><!--div table-responsive end-->
+                </div>
+            </div>
+            </div>
+        </div>    
+        <script >
+            function confirmAction(id,lock) {
+                document.getElementById("userIdHidden").value = id;
+                document.getElementById("userLockHidden").value = lock;
+                if (lock=='true') {
+                    document.getElementById("btnlock").innerHTML="Desbloquear";
+                } else {
+                    document.getElementById("btnlock").innerHTML="Dar de Baja";
+                }    
+            }
+            function deleteUser() {
+                var id = document.getElementById("userIdHidden").value;
+                window.location = "/userDelete/"+ id;
+            }
+            function lockUser() {
+                var id = document.getElementById("userIdHidden").value;
+                var lock = document.getElementById("userLockHidden").value;
+                if (lock=='true') {
+                    window.location = "/unlockUser/"+ id;
+                } else {
+                   window.location = "/lockUser/"+ id; 
+                }
+            }    
+            
+        </script>  
+        <div th:include="user-form/confirm-delete-modal.html" th:remove="tag"></div>
+
+    
+    
+    <script type="text/javascript" src="/js/datatablemain.js"></script>      
+    </body>
+</html>

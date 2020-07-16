@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title th:text="${userEditMode}? 'Editar Usuario': 'Registrar Usuario'">Usuarios</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/solid.css">
+	    <script src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
+    </head>
+
+    <body>
+        <div class="container pt-4 pb-4">
+            <div class="card col-sm-12 col-md-8 col-lg-6  pt-2">
+                <div class="card-header">
+                    <h4 th:text="${userEditMode}? 'Editar Usuario': 'Registrar Usuario'">Registro de Usuario</h4>
+                    <h5 th:text="${userEditMode}? ${userForm.roles.nombre}"></h5>
+                </div>
+                <div class="card-body">
+                    
+                    <form class="form" th:object="${userForm}" th:action="${userEditMode}? @{/userEdit} : @{/userRegister}" method="POST">
+                        <input type="hidden"  th:field="${userForm.id}" value="${userForm.id}">
+                        <!--<input type="hidden" th:field="${userForm.roles}" th:if="${userEditMode==null or userEditMode==false}"-->
+                        <input type="hidden" th:field="${userForm.locked}" value="${userEditMode}? ${userForm.locked} : '0'}">
+                        <input type="hidden" th:if="${userEditMode}" th:value="xxxx" th:field="${userForm.password}" >
+                        <input type="hidden" th:if="${userEditMode}" th:value="xxxx" th:field="${userForm.confirmPassword}">
+                        <div class="row"><!--Nombres-->
+                            <div class="form-group mr-3">
+                                <input type="text" class="form-control form-control-sm" placeholder="Primer Nombre" th:field="${userForm.primerNombre}">
+                                <div class="alert-danger" th:if="${#fields.hasErrors('primerNombre')}" th:errors="*{primerNombre}">Name Error</div>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control form-control-sm" placeholder="Segundo Nombre" th:field="${userForm.segundoNombre}">
+                            </div>
+                        </div>
+
+                        <div class="row"><!--Apellidos-->
+                            <div class="form-group mr-3">
+                                <input type="text" class="form-control form-control-sm " placeholder="Primer Apellido" th:field="${userForm.primerApellido}">
+                                <div class="alert-danger" th:if="${#fields.hasErrors('primerApellido')}" th:errors="*{primerApellido}">Name Error</div>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control form-control-sm" placeholder="Segundo Apellido" th:field="${userForm.segundoApellido}">
+                                <div class="alert-danger" th:if="${#fields.hasErrors('segundoApellido')}" th:errors="*{segundoApellido}">Name Error</div>
+                            </div>
+                        </div>
+                        
+                        <div class="row"><!--Carnet-->
+                            <div class="col col-md-8 col-sm-6">
+                                <div class="form-group row">
+                                    <label for="carnet" class="form-label col-md-4 pr-0 mb-0">Carnet</label>
+                                    <div class="col-md-8 pl-0">
+                                        <input type="text" class="form-control form-control-sm" id="carnet" th:field="${userForm.carnet}">
+                                        <div class="alert-danger" th:if="${#fields.hasErrors('carnet')}" th:errors="*{carnet}">Name Error</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>    
+
+                        <div class="row"><!--Correo Electrónico-->
+                            <div class="col col-md-8 col-sm-6">
+                                <div class="form-group row">
+                                    <label for="carnet" class="form-label col-md-4 pr-0 mb-0">E-mail</label>
+                                    <div class="col-md-8 pl-0">
+                                        <input type="text" class="form-control form-control-sm" id="email" th:field="${userForm.email}">
+                                        <div class="alert-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Name Error</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> 
+                  
+                        <div class="row"><!--Contraseña-->
+                            <div class="col col-md-8">
+                                <div class="form-group row" >
+                                    <div class="col-md-8 col-sm-7 pl-0">
+                                        <input type="password" class="form-control form-control-sm" placeholder="Contraseña" id="pass" th:field="${userForm.password}" th:if="${userEditMode==null or userEditMode==false}">
+                                        <div class="alert-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Name Error</div>
+                                    </div>
+
+                                    <div class="col-md-8 col-sm-7 pl-0">
+                                        <input type="password" class="form-control form-control-sm" placeholder="Confirmar Contraseña" id="confirm-pass" th:field="${userForm.confirmPassword} " th:if="${userEditMode==null or userEditMode==false}">
+                                        <div class="alert-danger" th:if="${#fields.hasErrors('confirmPassword')}" th:errors="*{confirmPassword}">Name Error</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> 
+
+                        <div class="row"><!--Roles-->
+                            <div class="col col-md-8 col-sm-6">
+                                <div class="form-group row" th:if="${adminRegisterMode}">
+                                    <label for="carnet" class="form-label col-md-4 pr-0 mb-0">Selecionar rol</label><br>
+                                    
+                                    <select class="form-control" th:field="${userForm.roles.id}"> 
+                                        <option value="0" text=" " selected="true"></option>
+                                        <option th:each="r :${roleList}" th:value="${r.id}" th:text="${r.nombre}"></option>
+                                    </select>
+                                    <div class="alert-warnig" th:if="${#fields.hasErrors('roles')}" th:errors="*{roles}">Name Error</div>
+                                     
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="alert-danger" th:if="${errorMessage}" th:text="${errorMessage}">Name Error</div>
+                        </div>
+                    </div>
+                
+                <div class="card-footer">
+                    <div class="form-group row col-md-4 col-sm-8 col-xs-12 float-right ">
+                        <input type="submit" th:value="${userEditMode}? 'Guardar':'Registrarse'" class="btn btn-primary btn-block mr-2">
+                        <a class="btn btn-secondary btn-block mr-2" th:href="${userEditMode}? @{/userList} : @{/userList}">Cancelar</a>        
+                    </div> 
+                </div>
+
+                    </form>
+            </div>
+        </div>
+    </body>
+</html>

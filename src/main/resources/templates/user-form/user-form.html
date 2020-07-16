@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Usuarios</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/solid.css">
+	    <script src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
+    </head>
+
+    <body>
+        <div class="container pt-4 pb-4">
+            <div class="card col-sm-12 col-md-8 col-lg-6  pt-2">
+                <div class="card-header">
+                    <h4>Editar Usuario</h4>
+                </div>
+                <div class="card-body">
+                    
+                    <form class="form" th:object="${userForm}" th:action="@{/editUser}" method="POST">
+                        
+                        <div class="row"><!--Nombres-->
+                            <div class="form-group mr-3">
+                                <label for="prim-nom" class="mb-0">Primer Nombre</label>
+                                <input type="text" class="form-control " placeholder="" id="prim-nom">
+                            </div>
+                            <div class="form-group">
+                                <label for="seg-nom" class="mb-0">Segundo Nombre</label>
+                                <input type="text" class="form-control " placeholder="" id="seg-nom">
+                            </div>
+                        </div>
+
+                        <div class="row"><!--Apellidos-->
+                            <div class="form-group mr-3">
+                                <label for="prim-ap" class="mb-0">Primer Apellido</label>
+                                <input type="text" class="form-control " placeholder="" id="prim-ap">
+                            </div>
+                            <div class="form-group">
+                                <label for="seg-ap" class="mb-0">Segundo Apellido</label>
+                                <input type="text" class="form-control " placeholder="" id="seg-ap">
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row"><!--Carnet-->
+                            <div class="col col-md-8">
+                                <div class="form-group row">
+                                    <label for="carnet" class="form-label col-md-4 pr-0 mb-0">Carnet</label>
+                                    <div class="col-md-8 pl-0">
+                                        <input type="text" class="form-control" id="carnet">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>    
+
+                        <div class="row"><!--Correo Electrónico-->
+                            <div class="col col-md-8">
+                                <div class="form-group row">
+                                    <label for="carnet" class="form-label col-md-4 pr-0 mb-0">E-mail</label>
+                                    <div class="col-md-8 pl-0">
+                                        <input type="text" class="form-control" id="correo">
+                                    </div>
+                                </div>
+                            </div>
+                        </div> 
+
+                        <hr>
+                  
+                        
+                        
+                    
+                </div>
+                <div class="card-footer">
+                    <div class="form-group row col-md-4 col-sm-8 col-xs-12 float-right ">
+                            <input type="submit" value="Actualizar" class="btn btn-primary btn-block mr-2">
+                            <input type="submit" value="Cancelar" class="btn btn-secondary btn-block mr-2">
+                        </div>
+                    
+                </div>
+            </form>
+            </div>
+        </div>
+    </body>
+</html>
