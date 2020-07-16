@@ -15,7 +15,6 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 
-import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 public class User implements Serializable{
@@ -23,8 +22,7 @@ public class User implements Serializable{
     private static final long serialVersionUID = 61L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
-	@GenericGenerator(name = "native", strategy = "native")
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
 	@Column
