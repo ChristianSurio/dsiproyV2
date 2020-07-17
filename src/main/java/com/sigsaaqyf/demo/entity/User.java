@@ -22,7 +22,7 @@ public class User implements Serializable{
     private static final long serialVersionUID = 61L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
 	@Column
@@ -53,7 +53,7 @@ public class User implements Serializable{
 	@Transient
 	private String confirmPassword;
 	
-	@Column(columnDefinition = "boolean default false")
+	@Column
 	private Boolean locked;
 	
 //Relacion muchos a muchos entre usuario y rol
