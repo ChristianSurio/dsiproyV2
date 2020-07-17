@@ -17,10 +17,8 @@ import javax.validation.constraints.Pattern;
 
 
 @Entity
-public class User implements Serializable{
+public class User{
     
-    private static final long serialVersionUID = 61L;
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;

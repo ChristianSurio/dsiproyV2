@@ -12,9 +12,9 @@ import javax.persistence.Id;
 
 
 @Entity
-public class Role implements Serializable {
+public class Role{
 
-    private static final long serialVersionUID = 1L;
+    
 //ATRIBUTOS
 //##################################################    
     @Id
