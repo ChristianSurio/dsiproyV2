@@ -15,12 +15,16 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 
+import org.hibernate.annotations.GenericGenerator;
 
 @Entity
-public class User{
+public class User implements Serializable{
     
+    private static final long serialVersionUID = 61L;
+
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
+	@GenericGenerator(name = "native", strategy = "native")
 	private Long id;
 	
 	@Column
@@ -51,7 +55,7 @@ public class User{
 	@Transient
 	private String confirmPassword;
 	
-	@Column
+	@Column(columnDefinition = "boolean default false")
 	private Boolean locked;
 	
 //Relacion muchos a muchos entre usuario y rol
