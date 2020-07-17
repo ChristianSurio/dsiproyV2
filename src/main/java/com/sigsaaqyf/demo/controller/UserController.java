@@ -86,7 +86,7 @@ public class UserController {
                 return "user-form/user-register";
             }
         }
-        return "/index";
+        return "user-form/login";
     }
 
     @GetMapping("/adminRegister")
