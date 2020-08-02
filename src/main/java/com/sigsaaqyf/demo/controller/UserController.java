@@ -31,6 +31,11 @@ public class UserController {
         return "user-form/login";
     }
 
+    @GetMapping("/login")
+    public String login(){
+        return "user-form/login";
+    }
+
     @GetMapping("/activeUserList")
     public String activeUserList(Model model) {
         model.addAttribute("userList", userService.getAllActiveUsers());
@@ -150,7 +155,8 @@ public class UserController {
             //userFrom.setRoles(roleRepository.findById( myRole.getId() ) );
             userService.updateUser(userFrom);
             model.addAttribute("userList", userService.getAllUsers());
-            return "user-form/user-list";
+            //return "user-form/user-list";
+            return "redirect:/userList/";
         } catch (Exception e) {
             model.addAttribute("errorMessage",e.getMessage());
             model.addAttribute("userForm", userFrom);
@@ -169,7 +175,9 @@ public class UserController {
             model.addAttribute("listErrorMessage",e.getMessage());
         }
         
-        return userList(model);
+        //return userList(model);
+        model.addAttribute("userList", userService.getAllUsers());
+        return "redirect:/userList";
     }
 
     @GetMapping("/lockUser/{id}")
@@ -181,7 +189,9 @@ public class UserController {
         } catch (Exception e) {
             model.addAttribute("listErrorMessage",e.getMessage());
         }
-        return userList(model);
+        //return userList(model);
+        model.addAttribute("userList", userService.getAllUsers());
+        return "redirect:/userList";
     }
 
     @GetMapping("/unlockUser/{id}")
@@ -193,7 +203,9 @@ public class UserController {
         } catch (Exception e) {
             model.addAttribute("listErrorMessage",e.getMessage());
         }
-        return userList(model);
+        //return userList(model);
+        model.addAttribute("userList", userService.getAllUsers());
+        return "redirect:/userList";
     }
 }
 
